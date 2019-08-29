@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>06_面试题</title>
+    </head>
+    <body>
+        <script type="text/javascript">
+            /*
+  测试题1
+   */
+            function A() {}
+            A.prototype.n = 1
+
+            var b = new A()
+
+            A.prototype = {
+                n: 2,
+                m: 3
+            }
+
+            var c = new A()
+            console.log(b.n, b.m, c.n, c.m) // 1 undefined 2 3
+
+            /*
+   测试题2
+   */
+            function F() {}
+            Object.prototype.a = function() {
+                console.log('a()')
+            }
+            Function.prototype.b = function() {
+                console.log('b()')
+            }
+
+            var f = new F()
+            f.a() // a()
+            // f.b() // TypeError: f.b is not a function
+            F.a() // a()
+            F.b() // b()
+            console.log(f) // Object{}
+            console.log(Object.prototype) // Object {a: a() ...}
+            console.log(Function.prototype) // function ()
+        </script>
+    </body>
+</html>
