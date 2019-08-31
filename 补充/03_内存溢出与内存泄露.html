@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>02_内存溢出与内存泄露</title>
-</head>
-<body>
-
-<!--
+    <head>
+        <meta charset="UTF-8" />
+        <title>02_内存溢出与内存泄露</title>
+    </head>
+    <body>
+        <!--
 1. 内存溢出
   * 一种程序运行出现的错误
   * 当程序运行需要的内存超过了剩余的内存时, 就出抛出内存溢出的错误
@@ -19,42 +18,43 @@
     * 闭包
 -->
 
-<script type="text/javascript">
-  // 1. 内存溢出
-  var obj = {}
-  for (var i = 0; i < 10000; i++) {
-    obj[i] = new Array(10000000)
-    console.log('-----')
-  }
+        <script type="text/javascript">
+            // 1. 内存溢出
+            var obj = {};
+            for (var i = 0; i < 10000; i++) {
+                obj[i] = new Array(10000000);
+                console.log("-----");
+            }
 
-  // 2. 内存泄露
-    // 意外的全局变量
-  function fn() {
-    a = new Array(10000000)
-    console.log(a)
-  }
-  fn()
+            // 2. 内存泄露
+            // 意外的全局变量
+            // 告诉我们：用 var 去定义变量，不要直接写
+            function fn() {
+                a = new Array(10000000);
+                console.log(a);
+            }
+            fn();
 
-   // 没有及时清理的计时器或回调函数
-  var intervalId = setInterval(function () { //启动循环定时器后不清理
-    console.log('----')
-  }, 1000)
+            // 没有及时清理的计时器或回调函数
+            var intervalId = setInterval(function() {
+                //启动循环定时器后不清理
+                console.log("----");
+            }, 1000);
 
-  // clearInterval(intervalId)
+            // clearInterval(intervalId)
 
-    // 闭包
-  function fn1() {
-    var a = 4
-    function fn2() {
-      console.log(++a)
-    }
-    return fn2
-  }
-  var f = fn1()
-  f()
+            // 闭包
+            function fn1() {
+                var a = 4;
+                function fn2() {
+                    console.log(++a);
+                }
+                return fn2;
+            }
+            var f = fn1();
+            f();
 
-  // f = null
-
-</script>
-</body>
+            // f = null
+        </script>
+    </body>
 </html>

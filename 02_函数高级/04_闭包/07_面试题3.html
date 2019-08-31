@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>面试题——综合</title>
+        <script>
+            function Foo() {
+                getName = function() {
+                    alert(1);
+                };
+                return this;
+            }
+
+            Foo.getName = function() {
+                alert(2);
+            };
+
+            Foo.prototype.getName = function() {
+                alert(3);
+            };
+
+            var getName = function() {
+                alert(4);
+            };
+
+            function getName() {
+                alert(5);
+            }
+
+            // 请写出一下输出结果
+            // 2，在函数对象本身寻找
+            Foo.getName();
+
+            // 4，执行时 alert(4) 将 alert(5) 覆盖
+            getName();
+
+            // window.getName()，但是在 Foo() 执行过程中全局的 getName 被覆盖，所以是 1
+            Foo().getName();
+
+            // 1
+            getName();
+
+            // new 一定跟离它最近的小括号是一对，中间的内容不管有多长，应该是一个整体，并且返回一个函数
+            // new 的其中一个步骤就是要执行这个函数
+            new Foo.getName(); // 2
+
+            // 相当于
+            // var foo = new Foo();
+            // foo.getName();
+            // new Foo() 实例自身没有 getName，要去原型对象找
+            // （没有 getName 是因为没有写 this.getName = ...）
+            new Foo().getName(); // 3
+
+            // 先 new Foo()，得到 Foo 实例 foo
+            // 然后 new foo.getName()
+            // 相当于是 new function () { alert(3); } ()
+            // 所以是 3
+            new new Foo().getName(); // 3
+        </script>
+    </head>
+    <body></body>
+</html>
