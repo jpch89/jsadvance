@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            function A() {}
+            A.prototype.n = 1;
+            var b = new A(); // 此时已经将 b.__proto__ 指向 A.prototype，即 {n: 1}
+            A.prototype = {
+                n: 2,
+                m: 3
+            };
+            var c = new A(); // c 拥有新的 c.__proto__，即 {n:2, m: 3}
+
+            console.log(b.n, b.m, c.n, c.m); // 1 undefined 2 3
+        </script>
+    </body>
+</html>

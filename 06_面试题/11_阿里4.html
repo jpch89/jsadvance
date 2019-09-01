@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            function Person() {
+                getAge = function() {
+                    console.log(10);
+                };
+                return this;
+            }
+
+            Person.getAge = function() {
+                console.log(20);
+            };
+
+            Person.prototype.getAge = function() {
+                console.log(30);
+            };
+
+            var getAge = function() {
+                console.log(40);
+            };
+
+            function getAge() {
+                console.log(50);
+            }
+
+            Person.getAge(); // 20
+            getAge(); // 40，这里是函数最先提升，然后变量的 var getAge; 被忽略， 预解析完毕后 getAge 被覆盖成40
+            Person().getAge(); // 10
+            getAge(); // 10
+            new Person.getAge(); // 20
+            new Person().getAge(); // 30
+        </script>
+    </body>
+</html>

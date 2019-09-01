@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 预热一
+            var obj = { n: 1 };
+            var obj2 = obj;
+            obj2.n = 2;
+            console.log(obj.n); // 2
+
+            // 预热二
+            function fn1(a) {
+                a.n = 3;
+            }
+            fn1(obj);
+            console.log(obj.n); // 3
+
+            // 预热三
+            function fn2(a) {
+                a = { n: 4 };
+            }
+            fn2(obj);
+            console.log(obj.n); // 3
+
+            /*************************/
+            console.log("**********************");
+
+            var a = { n: 1 };
+            var b = a;
+            // 操作对象属性的优先级高于普通赋值操作
+            // 所以相当于 a.x = {n: 2}; a = {n: 2};
+            // 而正常的赋值操作的话是从右往左
+            a.x = a = { n: 2 };
+
+            console.log(a.n, b.n); // 2  1
+            console.log(a.x, b.x); // undefined {n: 2}
+        </script>
+    </body>
+</html>

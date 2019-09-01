@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 预热一
+            var a = 2;
+            function fn() {
+                console.log(a);
+                var a = 3;
+            }
+            fn(); // undefined
+
+            function fn2() {
+                console.log(a);
+                a = 3; // a 是全局变量
+            }
+            fn2(); // 2
+
+            // 预热二
+            function b() {}
+            var b;
+            console.log(typeof b); // "function"
+
+            // ***************
+            console.log("**************");
+
+            /*
+            var c;
+            function c(c) {
+                console.log(c);
+                var c = 3;
+            }
+            c = 1;
+            console.log(c); // 1
+            // c(2); // TypeError
+            */
+
+            /*
+            var c = 1;
+            function c(c) {
+                console.log(c);
+                var c = 3;
+            }
+            console.log(c); // 1
+            c(2); // TypeError
+            */
+
+            // 团子补充1：函数定义和函数表达式是不一样的
+            // 所以调换顺序会对结果有影响
+            var d = 1;
+            var d = function fund() {
+                console.log("fund()");
+            };
+            console.log(d); // funciton fund()
+            d(); // fund()
+
+            // 团子补充2：
+            var e = function fune() {
+                console.log("fune()");
+            };
+            var e = 1;
+            console.log(e); // 1
+            e(); // TypeError: e is not a function
+        </script>
+    </body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            var name = "A";
+            var object = {
+                name: "B",
+                getNameFunc: function() {
+                    return function() {
+                        return this.name;
+                    };
+                }
+            };
+            // 连续调用可以分解开
+            // var xxx = object.getNameFunc();
+            // xxx 接收的是一个函数
+            // 函数自调用，this 为 window
+            // xxx();
+
+            console.log(object.getNameFunc()()); // 'A'
+
+            var name2 = "A";
+            var object2 = {
+                name2: "B",
+                getNameFunc: function() {
+                    var that = this; // 缓存this
+                    return function() {
+                        return that.name2;
+                    };
+                }
+            };
+            // var xxx = object2.getNameFunc();
+            // xxx();
+            console.log(object2.getNameFunc()()); // 'B'
+        </script>
+    </body>
+</html>
